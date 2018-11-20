@@ -40,6 +40,7 @@ module.exports = (app, game, io) => {
         })
 
         client.on('winServer', function(data){
+          console.log('winServer');
           io.emit('winClient', {
             realName: data.realName,
             fakeName: data.fakeName

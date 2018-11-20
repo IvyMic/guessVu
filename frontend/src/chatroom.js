@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DisplayMessages from './displayMessages';
+import GameWon from './gameWon';
 import socket from './index.js';
 import ShowRealNames from './realNames';
 import ShowFakeNames from './fakeNames';
@@ -19,7 +20,8 @@ class ChatRoom extends Component {
       messages: [],
       realNames: [],
       fakeNames: [],
-      numberOfUsers: 0
+      numberOfUsers: 0,
+      winner: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -55,6 +57,16 @@ class ChatRoom extends Component {
       that.setState({ numberOfUsers: data.allFakeNames.length})
     });
 
+    socket.on('winClient', function(data) {
+      console.log('winClient')
+      that.setState({
+        winner: {
+          fakeName: that.props.user.fakeName,
+          realName: that.props.user.realName
+        }
+      })
+    })
+
   }
 
   handleChange(e) {
@@ -86,9 +98,13 @@ class ChatRoom extends Component {
   }
 
   render() {
+    console.log(this.state.winner);
     return (
       <div className="ChatRoom" id="chatRoom">
         <h1 className="ChatRoom-title" id="chatRoomTitle">Welcome {this.props.user.fakeName}</h1>
+        {this.state.winner && (
+          <GameWon winner={this.state.winner} />
+        )}
         <div className={styles.rightColumn}>
           <StartGame startGame={this.startGame} />
           <Leave user={this.props.user} />

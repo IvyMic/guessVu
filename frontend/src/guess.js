@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ResultOfGuess from './resultOfGuess';
 import styles from '../styles/guess.css';
+import socket from './index.js';
 
 class Guess extends Component {
   constructor(props) {
@@ -28,6 +29,9 @@ class Guess extends Component {
         }
       })
       .then(function(response) {
+        console.log({
+          'reponsefromGuess': response
+        })
         if (response.data.success === true) {
           that.setState({ guessOutcome: 'You guessed correctly!' });
         } else if (response.data.success === false) {
@@ -36,7 +40,11 @@ class Guess extends Component {
           console.log('No response');
         }
         if (response.data.win) {
-          // implement logic for winning
+          console.log('sending win to server')
+          socket.emit('winServer', {
+            fakeName: guessFakeName,
+            realName: guessRealName
+          })
         }
       })
       .catch(function(error) {
