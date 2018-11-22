@@ -8,7 +8,7 @@ class ShowFakeNames extends Component {
 
   render() {
     return (
-        <div className={styles.list} id='allRealNames'>
+        <div className={styles.list} id='allFakeNames'>
           <ul className={styles.unorderedList}>
           {this.props.fakeNames.map(element => (
             <li className={styles.names}>{element}</li>
