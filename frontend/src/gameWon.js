@@ -3,7 +3,7 @@ import styles from '../styles/gameWon.css'
 
 const GameWon = (props) => {
   return (
-      <h2 class={styles.title}> {props.winner.realName} aka {props.winner.fakeName} has won!</h2>
+      <h2 class={styles.title} id="gameWon"> {props.winner.realName} aka {props.winner.fakeName} has won!</h2>
   )
 }
 
