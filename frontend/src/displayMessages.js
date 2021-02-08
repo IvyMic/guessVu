@@ -25,7 +25,7 @@ class DisplayMessages extends Component {
           return (
             <div className={styles.msgDiv}>
               <ul className={styles.msgUl}>
-                <li className={styles.msgFakeName}>{element.fakeName}</li>
+                <li className={styles.msgFakeName} id="msgFakeName">{element.fakeName}</li>
                 <li className={styles.msgText}>{element.message}</li>
               </ul>
             </div>
